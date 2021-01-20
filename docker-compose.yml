@@ -1,0 +1,50 @@
+ # Spins up a MongoDB Replica Set for development and tinkering purposes
+ # This is not a production-ready setup, but allows one to study replicaset behavior
+ # There is a simpler setup for development if only the replicaset features are needed (transactions and changestreams), without the need for high availability.
+ # Check out the README.md portion of this project.
+
+version: "3.6"
+
+volumes:
+  rs1:
+  rs2:
+  rs3:
+
+networks:
+    mongodb:
+        attachable: true
+
+services:
+  mongodb-1:
+    image: "mongo:latest"
+    container_name: mongodb-1
+    command: --replSet rs0 --oplogSize 128 --bind_ip 0.0.0.0
+    volumes:
+      - rs1:/data/db
+    networks:
+      - mongodb
+    ports:
+      - "27017:27017"
+    restart: always
+  mongodb-2:
+    image: "mongo:latest"
+    container_name: mongodb-2
+    command: --replSet rs0 --oplogSize 128 --bind_ip 0.0.0.0
+    volumes:
+      - rs2:/data/db
+    networks:
+      - mongodb
+    ports:
+      - "27018:27017"
+    restart: always
+  mongodb-3:
+    image: "mongo:latest"
+    container_name: mongodb-3
+    command: --replSet rs0 --oplogSize 128 --bind_ip 0.0.0.0
+    volumes:
+      - rs3:/data/db
+    networks:
+      - mongodb
+    ports:
+      - "27019:27017"
+    restart: always
