@@ -7,7 +7,9 @@ Even though most deployments nowadays run in the cloud, in services such as [Mon
 
 ### How do I run it?
 
-This is a standard 3-node replicaset deployed locally by a docker-compose file. To begin using this:
+Note: These instructions assume a working installation of [Docker Compose](https://docs.docker.com/compose/install/) and an available bash interpreter.
+
+This is a standard 3-node replicaset deployed locally by a docker-compose file. 
 
 Clone this repository:
 ```bash
@@ -28,5 +30,10 @@ To shell into the primary and run db commands:
   setup.sh mongoShell
 ```
 
-#### How does it work?
-... Coming Soon
+### This is too complex for my use case. Do I really need three containers?
+
+If your requirements are simpler, then use a [standalone config](https://docs.mongodb.com/manual/tutorial/convert-standalone-to-replica-set/). The three-node setup is required for simulating some production scenarios, such as one of the nodes becoming unresponsive and requiring another node to become the primary database. For other features, a standalone will be enough.
+
+### How Does It Work?
+
+Refer to the Official MongoDB Docs on [replication](https://docs.mongodb.com/manual/replication/). 
